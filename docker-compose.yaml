@@ -9,7 +9,7 @@ services:
       - 8333:8333
     volumes:
       - ./seaweedfs:/data
-    command: server -dir=/data -s3.config=/run/secrets/seaweedfs_config -s3
+    command: server -dir=/data -s3 -s3.config=/run/secrets/seaweedfs_config
     secrets:
       - seaweedfs_config
     networks:

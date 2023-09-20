@@ -38,7 +38,7 @@ secrets:
     file: ./postgres_password.txt
   # https://github.com/seaweedfs/seaweedfs/wiki/Amazon-S3-API#static-configuration
   seaweedfs_config:
-    file: ./seaweedfs_config.txt
+    file: ./seaweedfs_config.json
 
 # Allows other containers to connect to data services
 networks:

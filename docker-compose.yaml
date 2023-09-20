@@ -43,4 +43,5 @@ secrets:
 # Allows other containers to connect to data services
 networks:
   data:
+    name: data
     driver: bridge

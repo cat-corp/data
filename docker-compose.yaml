@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  # S3-Compatible Object Storage
+  seaweedfs:
+    image: chrislusf/seaweedfs
+    restart: always
+    ports:
+      - 8333:8333
+    volumes:
+      - ./seaweedfs:/data
+    command: server -dir=/data -s3.config=/run/secrets/seaweedfs_config -s3
+    secrets:
+      - seaweedfs_config
+    networks:
+      - data
+
+  # Relational Database
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    secrets:
+      - postgres_password
+    networks:
+      - data
+
+# These files need to be populated before running docker-compose up
+secrets:
+  # Raw text
+  postgres_password:
+    file: ./postgres_password.txt
+  # https://github.com/seaweedfs/seaweedfs/wiki/Amazon-S3-API#static-configuration
+  seaweedfs_config:
+    file: ./seaweedfs_config.txt
+
+# Allows other containers to connect to data services
+networks:
+  data:
+    driver: bridge

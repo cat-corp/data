@@ -1,0 +1,5 @@
+postgres/
+seaweedfs/
+
+postgres_password.txt
+seaweedfs_config.txt

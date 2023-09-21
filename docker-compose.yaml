@@ -19,6 +19,10 @@ services:
   postgres:
     image: postgres
     restart: always
+    command: >
+      -c work_mem=256MB
+      -c maintenance_work_mem=256MB
+      -c max_wal_size=1GB
     ports:
       - 5432:5432
     environment:
